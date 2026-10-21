@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+build/
+dist/
+
+# Secrets / local config
+.env
+.env.*
+!.env.example
+
+# Generated pipeline artefacts (recreate with `make demo`)
+data/lake/
+data/warehouse/
+reports/
+run.log
+*.db
+*.db-journal
+*.db-wal
+*.sqlite
+*.log
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store

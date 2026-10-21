@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements*.txt
+      - run: python -m pip install -r requirements-dev.txt
+      - name: Repository hygiene (SQL/YAML/DAG syntax, secrets scan)
+        run: python scripts/validate_repo.py
+      - name: Unit + integration tests
+        run: python -m pytest -q
+      - name: End-to-end smoke run on sample data
+        env:
+          PYTHONPATH: src
+        run: |
+          python -m rideflow run
+          python -m rideflow health
+          python -m rideflow query revenue_by_city
+
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t rideflow-lakehouse .

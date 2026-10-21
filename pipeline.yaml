@@ -1,0 +1,31 @@
+# Pipeline configuration. Relative paths resolve against the project root.
+# Any key can be overridden with an environment variable RIDEFLOW_<KEY> (upper-case),
+# e.g. RIDEFLOW_BATCH_SIZE=500. Secrets/endpoints (Kafka) are supplied via env only.
+
+# --- storage layout -------------------------------------------------------------
+lake_dir: data/lake
+warehouse_path: data/warehouse/rideflow.db
+reports_dir: reports
+sql_dir: sql
+reference_dir: data/reference
+
+# --- source ---------------------------------------------------------------------
+source_type: file                    # file | kafka
+source_path: data/sample/events.jsonl
+batch_size: 250                      # records per bronze micro-batch
+kafka_topic: rideflow.events
+kafka_group: rideflow-bronze
+# kafka_bootstrap: set via RIDEFLOW_KAFKA_BOOTSTRAP when source_type=kafka
+
+# --- data-quality thresholds ----------------------------------------------------
+max_reject_rate: 0.08                # critical: invalid records / total records
+max_duplicate_rate: 0.05             # warning: duplicate event_id / total records
+freshness_max_lag_hours: 48          # warning: as_of - newest event
+max_cancel_rate: 0.60                # warning: simple anomaly bound on cancellations
+
+# --- operations -----------------------------------------------------------------
+sla_seconds: 300                     # warning when a run exceeds this
+health_max_run_age_hours: 26
+# Reference time for freshness / future-timestamp rules. Fixed for the deterministic
+# sample data; remove (or leave empty) in production to use the current UTC time.
+as_of: "2026-01-05T00:00:00Z"

@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this project in a portfolio, demo, or technical discussion, please cite it as follows."
+title: "RideFlow Lakehouse"
+type: software
+authors:
+  - family-names: Javed
+    given-names: Adam
+repository-code: "https://github.com/adamjaved-tech/rideflow-lakehouse"
+license: MIT
+keywords:
+  - data engineering
+  - data quality
+  - lakehouse
+  - SQL
+  - Python
+  - Apache Airflow
+  - Kafka

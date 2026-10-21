@@ -1,0 +1,6 @@
+city_id,city_name,country,timezone,currency
+lahore,Lahore,Pakistan,Asia/Karachi,PKR
+karachi,Karachi,Pakistan,Asia/Karachi,PKR
+dubai,Dubai,United Arab Emirates,Asia/Dubai,AED
+riyadh,Riyadh,Saudi Arabia,Asia/Riyadh,SAR
+cairo,Cairo,Egypt,Africa/Cairo,EGP

@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rideflow-lakehouse"
+version = "1.0.0"
+description = "Event-driven lakehouse pipeline: bronze/silver/gold, quality gates, observability"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = ["pandas>=2.2,<4", "PyYAML>=6.0,<7"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0,<9"]
+kafka = ["confluent-kafka>=2.4,<3"]
+
+[project.scripts]
+rideflow = "rideflow.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "tests"]
